@@ -12,19 +12,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
-    Provider.of<locationprovider>(context,listen: false).determineposition();
+    Provider.of<locationProvider>(context, listen: false).determineposition();
     super.initState();
   }
+ bool _clicked=false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+     final locationpro=Provider.of<locationProvider>(context,listen: false);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
-      // appBar: AppBar(),
       body: Container(
         padding: const EdgeInsets.only(top: 60, left: 20, right: 20),
         height: size.height,
@@ -36,38 +37,44 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         child: Stack(children: [
-          Container(
-            height: 50,
-            child: Row(children: [
-              const Icon(
-                Icons.location_pin,
-                color: Colors.red,
-                size: 35,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+          Consumer<locationProvider>(builder: (context, Provider, child) => 
+             Container(
+              height: 50,
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Malappuram",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                  ),
-                  Text("dfghjkl;", style: TextStyle(color: Colors.white))
-                ],
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 30,
-                  ))
-            ]),
+                const Row(
+                  children: [
+                    Icon(
+                      Icons.location_pin,
+                      color: Colors.red,
+                      size: 35,
+                    ),
+                    SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(Provider.currentLocationName!.locality,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
+                    Text("Good Moring", style: TextStyle(color: Colors.white))
+                  ],
+                ),
+                  ],
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 30,
+                    ))
+              ]),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 100),
@@ -132,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Image.asset(
                               "assets/catogery/cool.png",
-                              height: 100,
+                              height: 80,
                             ),
                             const Column(
                               children: [Text("data"), Text("dfghj")],

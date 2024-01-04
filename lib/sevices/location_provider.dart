@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:wetherapp/sevices/location_screvice.dart';
 
-class locationprovider with ChangeNotifier {
+class locationProvider with ChangeNotifier {
   Position? _currentposition;
-  Position? get currentpositio => _currentposition;
+  Position? get currentposition => _currentposition;
+  final locationService  _locationservice=locationService();
+  Placemark? _currentLocationName;
+  Placemark? get currentLocationName=>_currentLocationName;
 
   Future<void> determineposition() async {
     bool seviceEnabled;
@@ -31,6 +36,8 @@ class locationprovider with ChangeNotifier {
     }
     _currentposition = await Geolocator.getCurrentPosition();
     print(_currentposition);
+    _currentLocationName=await _locationservice.getLocationName(_currentposition);
+    print(_currentLocationName);
     notifyListeners();
   }
 }
