@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:wetherapp/data/imagepath.dart';
+import 'package:wetherapp/sevices/location_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    Provider.of<locationprovider>(context,listen: false).determineposition();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -93,41 +106,76 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Align(
-              alignment: Alignment(0.5, 0.5),
+              alignment: const Alignment(0.7, 0.7),
               child: Container(
-                height: 100,
-                child: Row(
+                height: 250,
+                child: Column(
                   children: [
-                    Image.asset(
-                      "assets/catogery/tem.png",
-                      height: 100,
-                    ),
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("data"),
-                         Text("dfghj")
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/catogery/tem.png",
+                              height: 100,
+                            ),
+                            const Column(
+                              children: [Text("data"), Text("dfghj")],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/catogery/cool.png",
+                              height: 100,
+                            ),
+                            const Column(
+                              children: [Text("data"), Text("dfghj")],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                   
-                  ],
-                ),
-              )),  Align(
-              alignment: Alignment(0.40,0.40),
-              child: Container(
-                height: 100,
-                child: Row(
-                  children: [
-                    Image.asset(
-                      "assets/catogery/tem.png",
-                      height: 100,
+                    const Divider(
+                      color: Colors.white,
+                      height: 1,
+                      thickness: 2,
                     ),
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("data"),
-                         Text("dfghj")
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/catogery/sun.png",
+                              height: 50,
+                            ),
+                            const Column(
+                              children: [Text("data"), Text("dfghj")],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 35,
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              "assets/catogery/moon2.png",
+                              height: 70,
+                            ),
+                            const Column(
+                              children: [Text("data"), Text("dfghj")],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                   
                   ],
                 ),
               )),
