@@ -17,12 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Provider.of<locationProvider>(context, listen: false).determineposition();
     super.initState();
   }
- bool _clicked=false;
+//  bool _clicked=false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-     final locationpro=Provider.of<locationProvider>(context,listen: false);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
@@ -37,12 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         child: Stack(children: [
-          Consumer<locationProvider>(builder: (context, Provider, child) => 
+          Consumer<locationProvider>(builder: (context,providerval, child) => 
              Container(
               height: 50,
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                const Row(
+                 Row(
                   children: [
                     Icon(
                       Icons.location_pin,
@@ -55,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(Provider.currentLocationName!.locality,
+                   Text(providerval.currentLocationName?.locality ?? 'unkown location',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

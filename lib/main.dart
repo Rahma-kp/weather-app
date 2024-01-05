@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wetherapp/sevices/location_provider.dart';
+import 'package:wetherapp/sevices/weather_sevice_provider.dart';
 import 'package:wetherapp/view/home.dart';
 
 void main() {
@@ -12,12 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [ChangeNotifierProvider(create: (context) => locationprovider(),)],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => locationProvider(),
+        ),
+          ChangeNotifierProvider(
+          create: (context) => weatherSeviceProvider(),)
+      ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              appBarTheme:
-                  AppBarTheme(backgroundColor: Colors.transparent, elevation: 0)),
+              appBarTheme: AppBarTheme(
+                  backgroundColor: Colors.transparent, elevation: 0)),
           title: 'Weather App',
           home: HomeScreen()),
     );
