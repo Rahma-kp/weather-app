@@ -3,7 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wetherapp/sevices/location_screvice.dart';
 
-class locationProvider with ChangeNotifier {
+class LocationProvider with ChangeNotifier {
   Position? _currentposition;
   Position? get currentposition => _currentposition;
   final locationService  _locationservice=locationService();

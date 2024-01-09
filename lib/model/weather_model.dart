@@ -1,4 +1,4 @@
-class weathermodel {
+class WeatherModel {
   Coord? coord;
   List<Weather>? weather;
   String? base;
@@ -13,7 +13,7 @@ class weathermodel {
   String? name;
   int? cod;
 
-  weathermodel(
+  WeatherModel(
       {this.coord,
       this.weather,
       this.base,
@@ -28,7 +28,7 @@ class weathermodel {
       this.name,
       this.cod});
 
-  weathermodel.fromJson(Map<String, dynamic> json) {
+  WeatherModel.fromJson(Map<String, dynamic> json) {
     coord = json['coord'] != null ? new Coord.fromJson(json['coord']) : null;
     if (json['weather'] != null) {
       weather = <Weather>[];
@@ -126,7 +126,7 @@ class Weather {
 }
 
 class Main {
-  int? temp;
+  double? temp;
   double? feelsLike;
   double? tempMin;
   double? tempMax;

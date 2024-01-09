@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wetherapp/sevices/location_provider.dart';
 import 'package:wetherapp/sevices/weather_sevice_provider.dart';
 import 'package:wetherapp/view/home.dart';
+import 'package:wetherapp/view/loding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,10 +17,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => locationProvider(),
+          create: (context) => LocationProvider(),
         ),
           ChangeNotifierProvider(
-          create: (context) => weatherSeviceProvider(),)
+          create: (context) => WeatherServiceProvider(),)
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
               appBarTheme: AppBarTheme(
                   backgroundColor: Colors.transparent, elevation: 0)),
           title: 'Weather App',
-          home: HomeScreen()),
+          home: LoadingScreen()),
     );
   }
 }
