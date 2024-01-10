@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  bool _clicked = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,16 +45,25 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         child: Stack(children: [
-          _clicked == true
-              ? Positioned(
-                  top: 60,
-                  right: 20,
-                  left: 20,
-                  child: Container(
-                    child: Consumer<WeatherServiceProvider>(builder: (context, value, child) => 
-                       TextFormField(style:  TextStyle(color: Colors.white),
-                        // controller: value.searchController.text
-                          decoration: InputDecoration(
+          Positioned(
+              top: 60,
+              right: 20,
+              left: 20,
+              child: Container(
+                child: Consumer<WeatherServiceProvider>(
+                  builder: (context, value, child) => TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      controller: value.searchController,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              value.fetchWeatherDataByCity(value.searchController.text.trim(), context);
+                              value.searchController.clear();
+                            },
+                            icon: Icon(
+                              Icons.search,
+                              color: Colors.white,
+                            )),
                         hintText: "Search City",
                         hintStyle: TextStyle(
                           color: Colors.white,
@@ -67,10 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
                       )),
-                    ),
-                    height: 40,
-                  ))
-              : SizedBox.shrink(),
+                ),
+                height: 40,
+              )),
           Consumer<LocationProvider>(
             builder: (context, providerval, child) => Container(
               height: 50,
@@ -95,20 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 15),
                         ),
-                        
                       ],
                     ),
-                    IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _clicked = true;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 30,
-                        ))
                   ]),
             ),
           ),
@@ -153,14 +148,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Positioned(bottom:80,
+          Positioned(
+            bottom: 80,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.black.withOpacity(0.5),
               ),
               height: 200,
-              width:350,
+              width: 350,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -204,8 +200,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 "Temp Min",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              Consumer<WeatherServiceProvider>(builder: (context, value, child) => 
-                                 Text(
+                              Consumer<WeatherServiceProvider>(
+                                builder: (context, value, child) => Text(
                                   '${value.weather?.main?.tempMin ?? 'N/A '}\u00b0c',
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -287,13 +283,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-    void searchCity(BuildContext context) {
+  void searchCity(BuildContext context) {
     final weatherProvider =
         Provider.of<WeatherServiceProvider>(context, listen: false);
     weatherProvider.fetchWeatherDataByCity(
         weatherProvider.searchController.text.trim(), context);
     weatherProvider.searchController.clear();
   }
+
   void refreshCurrentLocationWeather(BuildContext context) async {
     final weatherProvider =
         Provider.of<WeatherServiceProvider>(context, listen: false);
